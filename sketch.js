@@ -17,7 +17,7 @@ function preload(){
 }
 
 function setup(){
-    p5Canvas = createCanvas(bins, bins);
+    p5Canvas = createCanvas(bins, bins, WEBGL);
     p5Canvas.parent('p5Canvas');
     
     button = createButton('Play');
@@ -29,24 +29,32 @@ function setup(){
 
 function draw(){
     background(0);
-    
     waveform = fft.waveform();
     spectrum = fft.analyze();
-    print(spectrum);
-
-    stroke(255);  
-    fill(255);    
-    //time domain
-    for(let i = 0; i < waveform.length; i++){
-        let x = map(i, 0, waveform.length, 0, width);
-        let y = height/2+map(waveform[i], -1, 1, -r, r);
-        ellipse(x, y, 2, 2);  
+    let vol = fft.getEnergy(20,140);
+    
+    
+    // Set color based on volume
+    if (vol > 220){
+        stroke(250,0,0);
+        fill(250,0,0);
+    } else {
+        stroke(255);
+        fill(255);
+    }
+    
+    // Draw frequency bars
+    let barWidth = width / spectrum.length;
+    for(let i = 0; i < spectrum.length; i++){
+        let x = i * barWidth;
+        let h = map(spectrum[i], 0, 255, 0, height);
+        rect(x, height - h, barWidth, h);
     }
 
     noStroke();
     textAlign(LEFT, TOP);  
     textSize(20);
-    text(isPlaying ? 'Playing' : 'Paused', 70, 13);  
+    text(isPlaying ? 'Playing' : 'Paused', 70, 13);
 }
 
 function togglePlay() {
