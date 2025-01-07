@@ -19,3 +19,7 @@ A p5.js-based music visualization project that creates real-time visual represen
 - p5.sound.js
 - HTML5/CSS3
 - JavaScript
+
+## Preview of the Project
+https://github.com/user-attachments/assets/2c48b9ed-d2d4-4efd-88ae-75d65eee27b7
+
