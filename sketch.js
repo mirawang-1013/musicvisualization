@@ -33,9 +33,10 @@ function draw(){
     spectrum = fft.analyze();
     let vol = fft.getEnergy(20,140);
     
+    translate(-width/2, -height/2); // Center for WEBGL mode
     
     // Set color based on volume
-    if (vol > 220){
+    if (vol > 210){
         stroke(250,0,0);
         fill(250,0,0);
     } else {
